@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>中华之路：从古至今的人文长卷 | 3D 虚拟博物馆</title>
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- WebGL Canvas for 3D Scene -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Global Control Panel -->
+  <div id="control-panel" class="glass-panel">
+    <button id="menu-toggle-btn" class="icon-btn" title="查看人文史卷">
+      <span class="btn-icon">📜</span>
+      <span class="btn-text">人文史卷</span>
+    </button>
+    <button id="audio-toggle-btn" class="icon-btn" title="开关背景音乐">
+      <span class="btn-icon">🔇</span>
+      <span class="btn-text">音效已关</span>
+    </button>
+  </div>
+
+  <!-- Timeline Menu Sidebar -->
+  <div id="timeline-sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3 class="calligraphy-title-small">人文史卷</h3>
+      <button id="close-sidebar-btn" class="close-btn">&times;</button>
+    </div>
+    <div class="sidebar-list" id="sidebar-list">
+      <!-- Renders 26 nodes dynamically -->
+    </div>
+  </div>
+
+  <!-- Loading / Intro Screen -->
+  <div id="intro-screen" class="overlay active">
+    <div class="intro-content">
+      <h1 class="calligraphy-title fade-in">中华之路</h1>
+      <p class="subtitle fade-in-delayed">AI 重访历史现场</p>
+      <div class="divider"></div>
+      <p class="description fade-in-delayed-2">
+        用 AI 重访一段历史，让人物、事件与现场从年代标签中重新显影。<br>
+        你将穿行于 26 个历史节点，在图像、场景与 3D 展品之间理解人的选择。<br>
+        从火光、玉器、甲骨、礼乐到数字日常，历史会以新的视角被再次看见。
+      </p>
+      <button id="start-btn" class="primary-btn fade-in-delayed-3">开启人文旅程</button>
+      <div class="loading-status">正在初始化 3D 殿堂...</div>
+    </div>
+    <aside class="intro-route-preview route-preview-left fade-in-delayed-2" aria-label="中华人文史卷之路前十三站缩略图">
+      <div class="route-preview-title">中华人文史卷之路 · 上卷</div>
+      <div class="route-preview-map">
+        <figure class="route-stop">
+          <img src="./images/event-0.png" alt="远古星火">
+          <figcaption>01 远古星火</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-1.png" alt="良渚曙光">
+          <figcaption>02 良渚曙光</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-2.png" alt="殷商问卜">
+          <figcaption>03 殷商</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-3.png" alt="周礼定序">
+          <figcaption>04 周礼</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-4.png" alt="春秋裂变">
+          <figcaption>05 春秋</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-5.png" alt="秦风烈烈">
+          <figcaption>06 秦风</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-6.png" alt="汉风浩荡">
+          <figcaption>07 汉风</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-7.png" alt="魏晋风骨">
+          <figcaption>08 魏晋</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-8.png" alt="南北朝">
+          <figcaption>09 南北朝</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-9.png" alt="隋开运河">
+          <figcaption>10 隋运河</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-10.png" alt="盛唐气象">
+          <figcaption>11 盛唐</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-11.png" alt="中唐变调">
+          <figcaption>12 中唐</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-12.png" alt="宋韵千年">
+          <figcaption>13 宋韵</figcaption>
+        </figure>
+      </div>
+    </aside>
+    <aside class="intro-route-preview route-preview-right fade-in-delayed-2" aria-label="中华人文史卷之路后十三站缩略图">
+      <div class="route-preview-title">中华人文史卷之路 · 下卷</div>
+      <div class="route-preview-map">
+        <figure class="route-stop">
+          <img src="./images/event-13.png" alt="梦华东京">
+          <figcaption>14 东京</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-14.png" alt="南宋偏安">
+          <figcaption>15 南宋</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-15.png" alt="元都大都">
+          <figcaption>16 元都</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-16.png" alt="明之气象">
+          <figcaption>17 明之气象</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-17.png" alt="晚明浮世">
+          <figcaption>18 晚明</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-18.png" alt="清前期">
+          <figcaption>19 清前期</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-19.png" alt="晚清变局">
+          <figcaption>20 晚清</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-20.png" alt="民国风雨">
+          <figcaption>21 民国</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-21.png" alt="烽火记忆">
+          <figcaption>22 烽火</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-22.png" alt="新中国">
+          <figcaption>23 新中国</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-23.png" alt="改革浪潮">
+          <figcaption>24 改革</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-24.png" alt="数字时代">
+          <figcaption>25 数字</figcaption>
+        </figure>
+        <figure class="route-stop">
+          <img src="./images/event-25.png" alt="此刻">
+          <figcaption>26 此刻</figcaption>
+        </figure>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Main HUD (Heads-Up Display) -->
+  <div id="hud" class="hud-container hidden">
+    <!-- Current Node Banner -->
+    <div id="era-banner" class="hud-top-left glass-panel">
+      <div id="era-index">01 / 26</div>
+      <div id="era-title" class="calligraphy-title-small">远古星火</div>
+      <div id="era-tagline">神话与聚落</div>
+    </div>
+
+    <div id="character-spotlight" class="character-spotlight hidden" aria-hidden="true">
+      <img id="character-spotlight-img" src="" alt="">
+    </div>
+
+    <!-- Current Node Humanistic Preview -->
+    <section id="node-insight-card" class="hud-node-card glass-panel">
+      <canvas id="node-visual-canvas" width="640" height="360" aria-label="当前节点图像预览"></canvas>
+      <div class="node-insight-body">
+        <div id="node-period" class="node-eyebrow">神话与聚落</div>
+        <h3 id="node-insight-title">人文解读</h3>
+        <p id="node-insight-text"></p>
+        <div class="node-metadata">
+          <span id="node-character-count">人物 1</span>
+          <span id="node-artifact-count">展品 1</span>
+        </div>
+        <div class="node-action-row">
+          <button id="node-image-btn" class="node-action-btn" type="button">人文图片</button>
+          <button id="node-person-btn" class="node-action-btn" type="button">人物还原</button>
+          <button id="node-event-btn" class="node-action-btn" type="button">事件还原</button>
+          <button id="node-site-btn" class="node-action-btn" type="button">历史现场</button>
+          <button id="node-3d-btn" class="node-action-btn strong" type="button">3D 展示</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Prompt & Progress -->
+    <div id="nav-indicator" class="hud-bottom glass-panel">
+      <div class="progress-bar-container">
+        <div id="progress-bar"></div>
+      </div>
+      <div class="control-hints">
+        <span class="desktop-hint">🖱️ 鼠标滚轮 / 键盘 [W] / [S] 前行 | 拖拽旋转视点</span>
+        <span class="mobile-hint">👆 触摸滑动前行 | 拖拽旋转视点</span>
+      </div>
+      <div class="nav-buttons">
+        <button id="prev-btn" class="nav-btn" disabled>← 上一纪元</button>
+        <button id="next-btn" class="nav-btn">下一纪元 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calligraphy Wall Projection (Rendered in DOM for crisp look) -->
+  <div id="calligraphy-overlay" class="hidden">
+    <div id="projected-poetry" class="vertical-calligraphy"></div>
+  </div>
+
+  <!-- Node Humanistic Image Overlay -->
+  <div id="image-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container glass-panel image-modal-container">
+      <button class="close-btn" id="close-image-btn" type="button" aria-label="关闭人文图片弹窗" title="关闭">&times;</button>
+      <div class="image-canvas-wrap">
+        <button id="image-prev-btn" class="image-nav-btn image-nav-prev" type="button" aria-label="上一张人文图片">‹</button>
+        <canvas id="image-modal-canvas" width="1280" height="720" aria-label="节点人文图片"></canvas>
+        <button id="image-next-btn" class="image-nav-btn image-nav-next" type="button" aria-label="下一张人文图片">›</button>
+      </div>
+      <div class="image-modal-info">
+        <div id="image-modal-period" class="node-eyebrow">神话与聚落</div>
+        <h2 id="image-modal-title" class="calligraphy-title-medium">远古星火</h2>
+        <div id="image-modal-caption" class="image-modal-caption">节点人文图像</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Character Detail Overlay (Glassmorphism Modal) -->
+  <div id="character-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container glass-panel">
+      <button class="close-btn" id="close-char-btn">&times;</button>
+      <div class="modal-body">
+        <div id="char-avatar" class="char-avatar-placeholder"></div>
+        <div class="char-info">
+          <div id="char-role" class="char-role">唐代 · 诗人</div>
+          <h2 id="char-name" class="calligraphy-title-medium">李白</h2>
+          <div class="divider-small"></div>
+          <!-- Voice Button -->
+          <button id="char-voice-btn" class="voice-btn">
+            <span class="voice-icon">🔊</span> 聆听原声
+          </button>
+          <div id="char-quote" class="poetry-quote">
+            「君不见黄河之水天上来，奔流到海不复回。」
+          </div>
+          <div id="char-description" class="modal-text">
+            李白，字太白，号青莲居士。大唐盛世的璀璨星斗，以豪迈奔放、飘逸洒脱的诗风著称。他的诗作不仅反映了个体生命的极致绽放，更是盛唐精神的最佳注脚。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Artifact Detail Overlay -->
+  <div id="artifact-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container glass-panel wide-modal artifact-modal-container">
+      <button class="close-btn" id="close-art-btn">&times;</button>
+      <div class="modal-body grid-layout">
+        <div class="art-visual-panel">
+          <div class="art-view-toolbar" aria-label="展品视图切换">
+            <button id="art-model-toggle" class="art-view-toggle active" type="button">3D 模型</button>
+            <button id="art-reference-toggle" class="art-view-toggle" type="button">参考图</button>
+          </div>
+          <div id="art-visual-stage" class="art-visual-stage">
+            <canvas id="art-poster-canvas" class="art-poster-canvas" width="800" height="800" aria-label="展品图像预览"></canvas>
+            <div id="art-canvas-container"></div>
+            <figure id="art-reference-panel" class="art-reference-panel">
+              <img id="art-reference-image" alt="展品参考图">
+              <figcaption id="art-reference-caption">参考实物与纹理依据</figcaption>
+            </figure>
+          </div>
+          <div class="art-caption">拖拽旋转 · 光点标示文字提及的关键细节</div>
+        </div>
+        <div class="art-info">
+          <div id="art-era" class="art-era">殷商 · 青铜器</div>
+          <h2 id="art-name" class="calligraphy-title-medium">司母戊鼎</h2>
+          <div class="divider-small"></div>
+          <button id="art-voice-btn" class="voice-btn" type="button">
+            <span class="voice-icon">🔊</span>
+            <span class="btn-text">听讲解</span>
+          </button>
+          <div id="art-feature-list" class="art-feature-list" aria-label="展品关键细节"></div>
+          <div id="art-narrative" class="modal-text scrollable-text">
+            <!-- 500-800 word humanistic narrative -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transition Overlay (Gate between eras) -->
+  <div id="transition-gate" class="gate-overlay hidden">
+    <div class="gate-content">
+      <div id="transition-phrase" class="vertical-calligraphy-large">繁华散尽，词心初萌</div>
+      <div class="gate-tip">正在步入下一个纪元...</div>
+    </div>
+  </div>
+
+  <!-- Lookback Wall Screen (End of Journey) -->
+  <div id="lookback-screen" class="overlay hidden">
+    <div class="lookback-content">
+      <h2 class="calligraphy-title fade-in">终章 · 回望</h2>
+      <div class="lookback-grid" id="lookback-grid">
+        <!-- Render 25 silhouettes dynamically -->
+      </div>
+      <div class="lookback-reflection">
+        <p class="reflection-quote">“你走过的，不是历史，是人的选择。”</p>
+        <p class="reflection-sub">中华之路 · AI 重访历史现场</p>
+      </div>
+      <button id="restart-btn" class="primary-btn">重返起源</button>
+    </div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

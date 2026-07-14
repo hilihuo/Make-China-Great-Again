@@ -1,0 +1,18 @@
+{
+  "name": "china-road-museum",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.11"
+  },
+  "dependencies": {
+    "three": "^0.165.0",
+    "gsap": "^3.12.5"
+  }
+}

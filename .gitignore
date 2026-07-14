@@ -1,0 +1,26 @@
+# Dependencies and build output
+node_modules/
+dist/
+.vite/
+
+# Root-level duplicate source assets; runtime assets live in public/images/
+/images/
+
+# Local generation and temporary files
+tmp-*
+*.log
+
+# Local editor / agent state
+.agents/
+.codex/
+.gitdata/
+.vscode/
+.idea/
+
+# Environment and OS files
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+Desktop.ini

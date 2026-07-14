@@ -1,9 +1,18 @@
 [CmdletBinding()]
 param(
-    [string]$ProjectRoot = (Split-Path -Parent $PSScriptRoot)
+    [string]$ProjectRoot
 )
 
 $ErrorActionPreference = 'Stop'
+
+if ([string]::IsNullOrWhiteSpace($ProjectRoot)) {
+    $scriptPath = $MyInvocation.MyCommand.Path
+    if ([string]::IsNullOrWhiteSpace($scriptPath)) {
+        throw 'Unable to determine the script path. Pass -ProjectRoot explicitly.'
+    }
+
+    $ProjectRoot = Split-Path -Parent (Split-Path -Parent $scriptPath)
+}
 
 $root = (Resolve-Path -LiteralPath $ProjectRoot).Path
 $packageJson = Join-Path $root 'package.json'

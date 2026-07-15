@@ -9,6 +9,7 @@ dist/
 .native-tools/
 .gradle-user-home/
 release/
+android-layout-preview.png
 .vite/
 
 # Root-level duplicate source assets; runtime assets live in public/images/

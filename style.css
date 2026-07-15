@@ -1667,3 +1667,177 @@ body.sidebar-open .character-spotlight {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* Capacitor Android uses a compact landscape HUD without affecting web or Electron. */
+@media (orientation: landscape) {
+  html.android-app {
+    --sidebar-width: min(36vw, 180px);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  html.android-app #control-panel {
+    top: max(6px, env(safe-area-inset-top));
+    right: max(8px, env(safe-area-inset-right));
+    gap: 2px;
+    padding: 3px;
+    border-radius: 8px;
+  }
+
+  html.android-app #control-panel .icon-btn {
+    gap: 5px;
+    padding: 5px 9px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  html.android-app .hud-top-left {
+    top: max(8px, env(safe-area-inset-top));
+    left: max(8px, env(safe-area-inset-left));
+    width: min(28vw, 152px);
+    padding: 7px 11px;
+    border-radius: 8px;
+  }
+
+  html.android-app .hud-top-left .calligraphy-title-small {
+    font-size: 1.38rem;
+    line-height: 1.04;
+  }
+
+  html.android-app #era-index {
+    font-size: 0.66rem;
+    margin-bottom: 2px;
+  }
+
+  html.android-app #era-tagline {
+    margin-top: 2px;
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+
+  html.android-app .character-spotlight {
+    top: 50%;
+    left: 31%;
+    width: min(34vw, 430px);
+    height: calc(100dvh - 14px);
+  }
+
+  html.android-app body.sidebar-open .character-spotlight {
+    left: calc(var(--sidebar-width) + ((49vw - var(--sidebar-width)) * 0.52));
+  }
+
+  html.android-app .hud-node-card {
+    top: max(46px, calc(env(safe-area-inset-top) + 42px));
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: auto;
+    width: min(50vw, 430px);
+    max-height: none;
+    padding: 7px;
+    display: grid;
+    grid-template-columns: minmax(96px, 0.82fr) minmax(0, 1.18fr);
+    align-items: start;
+    gap: 8px;
+    overflow: hidden;
+    border-radius: 9px;
+  }
+
+  html.android-app #node-visual-canvas {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    height: auto;
+    align-self: start;
+    border-radius: 6px;
+  }
+
+  html.android-app .node-insight-body {
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  html.android-app .node-eyebrow {
+    margin-bottom: 2px;
+    font-size: 0.66rem;
+    line-height: 1.25;
+  }
+
+  html.android-app #node-insight-title {
+    margin-bottom: 3px;
+    font-size: 0.82rem;
+    line-height: 1.25;
+  }
+
+  html.android-app #node-insight-text {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.68rem;
+    line-height: 1.32;
+    text-align: left;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  html.android-app .node-metadata {
+    gap: 4px;
+    margin-top: 4px;
+    font-size: 0.62rem;
+    line-height: 1.15;
+  }
+
+  html.android-app .node-metadata span {
+    padding: 2px 5px;
+  }
+
+  html.android-app .node-action-row {
+    gap: 4px;
+    margin-top: auto;
+    padding-top: 5px;
+  }
+
+  html.android-app .node-action-btn {
+    min-width: 0;
+    min-height: 25px;
+    padding: 4px 3px;
+    border-radius: 4px;
+    font-size: 0.67rem;
+    line-height: 1.15;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  html.android-app .hud-bottom {
+    bottom: max(6px, env(safe-area-inset-bottom));
+    left: 27%;
+    width: min(44vw, 390px);
+    max-width: none;
+    padding: 5px 8px;
+    border-radius: 8px;
+  }
+
+  html.android-app .hud-bottom .progress-bar-container {
+    margin-bottom: 5px;
+  }
+
+  html.android-app .hud-bottom .control-hints {
+    display: none;
+  }
+
+  html.android-app .hud-bottom .nav-buttons {
+    gap: 6px;
+  }
+
+  html.android-app .hud-bottom .nav-btn {
+    min-height: 28px;
+    padding: 4px 6px;
+    font-size: 0.72rem;
+    line-height: 1.15;
+  }
+
+  html.android-app .sidebar {
+    width: var(--sidebar-width);
+    padding: 10px 9px;
+  }
+}

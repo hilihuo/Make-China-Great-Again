@@ -40,6 +40,7 @@ GitHub Desktop 左侧 **Changes** 应包含以下主要内容：
 - `README.md`
 - `NATIVE_APPS.md`
 - `RELEASE_1.0.0.md`
+- `RELEASE_1.0.1.md`
 - `GITHUB_DESKTOP_UPLOAD.md`
 - `GITHUB_RELEASE_NOTES_1.0.0.md`
 - `ZHIHU_PROMOTION_ARTICLE.md`
@@ -113,3 +114,13 @@ C:\Users\hilih\Documents\Projects\RW\release\android\private-signing
 3. Windows 测试安装、启动和卸载。
 4. Android 测试安装、横屏启动、人文图片、人物还原、3D 展示和语音讲解。
 5. 确认 Release 页面没有发布密钥、密码或 `.native-tools` 内容。
+
+## 八、发布 Android 1.0.1 横屏修复版
+
+本次 Android 专用布局修复使用新的 `versionCode 2` 和 `versionName 1.0.1`，Windows 安装程序没有变化。源码推送完成后，可在 GitHub Releases 新建标签 `v1.0.1`，上传：
+
+```text
+C:\Users\hilih\Documents\Projects\RW\release\android\China-Humanities-Museum-1.0.1.apk
+```
+
+该 APK 使用与 1.0 相同的发布密钥签名，可覆盖手机中的旧版。版本说明和 SHA-256 见 [RELEASE_1.0.1.md](RELEASE_1.0.1.md)。

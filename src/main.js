@@ -3,6 +3,13 @@ import { MuseumRenderer } from './renderer.js';
 import { sound } from './sound.js';
 import { getArtifactVisualSpec, getVisualSpec } from './visualSpecs.js';
 import { gsap } from 'gsap';
+import { Capacitor } from '@capacitor/core';
+
+const isAndroidLayoutPreview = import.meta.env.DEV
+  && new URLSearchParams(window.location.search).has('android-layout-preview');
+const isAndroidApp = (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android')
+  || isAndroidLayoutPreview;
+document.documentElement.classList.toggle('android-app', isAndroidApp);
 
 class MuseumApp {
   constructor() {
@@ -4286,4 +4293,8 @@ class MuseumApp {
 window.addEventListener('DOMContentLoaded', () => {
   const app = new MuseumApp();
   app.init();
+  if (isAndroidLayoutPreview) {
+    app.toggleSidebar(false);
+    app.enterJourneyAt(0);
+  }
 });

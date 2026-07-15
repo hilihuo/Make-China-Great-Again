@@ -41,6 +41,7 @@ GitHub Desktop 左侧 **Changes** 应包含以下主要内容：
 - `NATIVE_APPS.md`
 - `RELEASE_1.0.0.md`
 - `RELEASE_1.0.1.md`
+- `RELEASE_1.0.2.md`
 - `GITHUB_DESKTOP_UPLOAD.md`
 - `GITHUB_RELEASE_NOTES_1.0.0.md`
 - `ZHIHU_PROMOTION_ARTICLE.md`
@@ -124,3 +125,13 @@ C:\Users\hilih\Documents\Projects\RW\release\android\China-Humanities-Museum-1.0
 ```
 
 该 APK 使用与 1.0 相同的发布密钥签名，可覆盖手机中的旧版。版本说明和 SHA-256 见 [RELEASE_1.0.1.md](RELEASE_1.0.1.md)。
+
+## 九、发布 Android 1.0.2 多机型横屏适配版
+
+本次只更新 Android：使用 `versionCode 3` 和 `versionName 1.0.2`，Windows 安装程序继续保持 1.0.0。源码推送完成后，在 GitHub Releases 新建标签 `v1.0.2`，只需上传：
+
+```text
+C:\Users\hilih\Documents\Projects\RW\release\android\China-Humanities-Museum-1.0.2.apk
+```
+
+该版本重新适配小米、OPPO、vivo、荣耀、realme 等安卓手机的横屏安全区域和短屏高度。它使用原发布证书签名，可直接覆盖安装 1.0.0 或 1.0.1。版本说明和 SHA-256 见 [RELEASE_1.0.2.md](RELEASE_1.0.2.md)。

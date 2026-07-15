@@ -6,6 +6,7 @@ dist/
 .electron-builder-cache/
 .electron-user-data/
 .electron-user-data-packed/
+.layout-capture/
 .native-tools/
 .gradle-user-home/
 release/

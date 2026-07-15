@@ -5,8 +5,10 @@ import { getArtifactVisualSpec, getVisualSpec } from './visualSpecs.js';
 import { gsap } from 'gsap';
 import { Capacitor } from '@capacitor/core';
 
-const isAndroidLayoutPreview = import.meta.env.DEV
-  && new URLSearchParams(window.location.search).has('android-layout-preview');
+const androidLayoutPreviewMode = import.meta.env.DEV
+  ? new URLSearchParams(window.location.search).get('android-layout-preview')
+  : null;
+const isAndroidLayoutPreview = androidLayoutPreviewMode !== null;
 const isAndroidApp = (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android')
   || isAndroidLayoutPreview;
 document.documentElement.classList.toggle('android-app', isAndroidApp);
@@ -124,7 +126,9 @@ class MuseumApp {
 
     // Populate timeline sidebar list
     this.populateSidebar();
-    this.toggleSidebar(true);
+    // Keep the compact Android landing screen unobstructed. The timeline remains
+    // available from the top-right control, while desktop keeps the always-open卷册.
+    this.toggleSidebar(!isAndroidApp);
 
     // Sync progress bar
     this.updateProgressBar();
@@ -4295,6 +4299,20 @@ window.addEventListener('DOMContentLoaded', () => {
   app.init();
   if (isAndroidLayoutPreview) {
     app.toggleSidebar(false);
-    app.enterJourneyAt(0);
+    if (androidLayoutPreviewMode !== 'intro') {
+      app.enterJourneyAt(0);
+      window.setTimeout(() => {
+        if (androidLayoutPreviewMode === 'transition') {
+          app.transitionPhrase.textContent = '钻燧取火，以化腥臊';
+          app.transitionGate.classList.remove('hidden');
+          app.transitionGate.style.opacity = 1;
+        } else if (androidLayoutPreviewMode === 'image') {
+          app.openImageModal('human', app.nodeImageBtn);
+        } else if (androidLayoutPreviewMode === 'artifact' || androidLayoutPreviewMode === 'reference') {
+          app.openCurrentArtifactModal();
+          if (androidLayoutPreviewMode === 'reference') app.setArtifactReferenceMode(true);
+        }
+      }, 250);
+    }
   }
 });

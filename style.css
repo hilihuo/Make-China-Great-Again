@@ -1840,4 +1840,301 @@ body.sidebar-open .character-spotlight {
     width: var(--sidebar-width);
     padding: 10px 9px;
   }
+
+  /* Android landing screen: the timeline already provides all 26 entries, so
+     the desktop route walls only compete with the introduction on short screens. */
+  html.android-app #intro-screen {
+    padding:
+      max(8px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(8px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+    overflow: hidden;
+  }
+
+  html.android-app #intro-screen .intro-route-preview {
+    display: none;
+  }
+
+  html.android-app #intro-screen .intro-content {
+    width: min(76vw, 760px);
+    max-height: calc(100dvh - 24px);
+    padding: clamp(12px, 3dvh, 24px) clamp(22px, 4vw, 48px);
+    overflow: hidden;
+  }
+
+  html.android-app #intro-screen .calligraphy-title {
+    margin-bottom: 2px;
+    font-size: clamp(2.15rem, 6.4dvh, 3.45rem);
+    line-height: 1;
+  }
+
+  html.android-app #intro-screen .subtitle {
+    margin-bottom: 8px;
+    font-size: clamp(0.9rem, 2.8dvh, 1.2rem);
+  }
+
+  html.android-app #intro-screen .divider {
+    margin: 8px auto;
+  }
+
+  html.android-app #intro-screen .description {
+    font-size: clamp(0.74rem, 2.15dvh, 0.94rem);
+    line-height: 1.65;
+  }
+
+  html.android-app #intro-screen .primary-btn {
+    margin-top: 12px;
+    padding: 8px 26px;
+    font-size: 0.88rem;
+  }
+
+  html.android-app #intro-screen .loading-status {
+    margin-top: 7px;
+    font-size: 0.68rem;
+  }
+
+  /* The eight-character era phrase must remain completely visible on every
+     short landscape handset, including devices with display cut-outs. */
+  html.android-app #transition-gate {
+    padding:
+      max(10px, env(safe-area-inset-top))
+      max(24px, env(safe-area-inset-right))
+      max(10px, env(safe-area-inset-bottom))
+      max(24px, env(safe-area-inset-left));
+  }
+
+  html.android-app #transition-gate .gate-content {
+    width: 100%;
+    max-width: 920px;
+  }
+
+  html.android-app #transition-phrase {
+    max-width: 100%;
+    margin: 0 0 14px;
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    white-space: nowrap;
+    font-size: clamp(1.7rem, 8.2dvh, 3.15rem);
+    line-height: 1.15;
+    letter-spacing: 0.12em;
+  }
+
+  html.android-app #transition-gate .gate-tip {
+    font-size: clamp(0.68rem, 2.2dvh, 0.82rem);
+    letter-spacing: 1px;
+  }
+
+  /* Humanistic image viewer: use the phone's width for the image and reserve a
+     compact information rail. object-fit prevents the canvas bitmap stretching. */
+  html.android-app #image-modal {
+    padding:
+      max(6px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(6px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
+  }
+
+  html.android-app #image-modal .image-modal-container,
+  html.android-app #image-modal .image-modal-container.detail-mode,
+  html.android-app #image-modal .image-modal-container.portrait-mode,
+  html.android-app #image-modal .image-modal-container.detail-mode.portrait-mode {
+    display: grid;
+    grid-template-columns: minmax(0, 1.78fr) minmax(220px, 0.62fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
+    gap: clamp(8px, 1.4vw, 16px);
+    width: 100%;
+    max-width: none;
+    height: calc(100dvh - max(12px, env(safe-area-inset-top)) - max(12px, env(safe-area-inset-bottom)));
+    max-height: none;
+    padding: clamp(7px, 1.2vw, 12px);
+    overflow: hidden;
+  }
+
+  html.android-app #image-modal .image-modal-container.portrait-mode,
+  html.android-app #image-modal .image-modal-container.detail-mode.portrait-mode {
+    grid-template-columns: minmax(240px, 0.86fr) minmax(280px, 1.14fr);
+  }
+
+  html.android-app #image-modal .image-canvas-wrap,
+  html.android-app #image-modal .image-modal-container.detail-mode .image-canvas-wrap {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  html.android-app #image-modal-canvas,
+  html.android-app .image-modal-container.detail-mode #image-modal-canvas,
+  html.android-app .image-modal-container.portrait-mode #image-modal-canvas {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+  }
+
+  html.android-app #image-modal .image-modal-info,
+  html.android-app #image-modal .image-modal-container.detail-mode .image-modal-info {
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    align-self: stretch;
+    padding: clamp(26px, 5dvh, 42px) 8px 8px 2px;
+    overflow-y: auto;
+  }
+
+  html.android-app #image-modal .calligraphy-title-medium {
+    margin-top: 2px;
+    font-size: clamp(1.35rem, 5.2dvh, 2.15rem);
+    line-height: 1.18;
+  }
+
+  html.android-app #image-modal .image-modal-caption {
+    margin-top: 7px;
+    font-size: clamp(0.7rem, 2.25dvh, 0.88rem);
+    line-height: 1.5;
+  }
+
+  html.android-app #image-modal .image-nav-btn {
+    width: clamp(32px, 4vw, 42px);
+    height: clamp(44px, 12dvh, 58px);
+    font-size: 1.8rem;
+    background: rgba(0, 0, 0, 0.74);
+  }
+
+  html.android-app #image-modal .close-btn {
+    top: 9px;
+    right: 9px;
+    z-index: 12;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(212, 175, 55, 0.72);
+    border-radius: 50%;
+    background: rgba(3, 3, 5, 0.92);
+    color: #fff;
+    line-height: 30px;
+    text-shadow: 0 1px 4px #000;
+  }
+
+  /* Artifact viewer: keep the information rail, but let model and reference
+     image use the complete visual stage one at a time. */
+  html.android-app #artifact-modal {
+    justify-content: center;
+    padding:
+      max(6px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(6px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
+  }
+
+  html.android-app #artifact-modal .artifact-modal-container {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: calc(100dvh - max(12px, env(safe-area-inset-top)) - max(12px, env(safe-area-inset-bottom)));
+    max-height: none;
+  }
+
+  html.android-app #artifact-modal .artifact-modal-container .grid-layout {
+    grid-template-columns: minmax(0, 2.15fr) minmax(250px, 0.85fr);
+    grid-template-rows: minmax(0, 1fr);
+    width: 100%;
+    height: 100%;
+  }
+
+  html.android-app #artifact-modal .art-visual-panel {
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    padding: 5px;
+    border-right: 1px solid var(--border-color);
+    border-bottom: 0;
+  }
+
+  html.android-app #artifact-modal .art-visual-stage,
+  html.android-app #artifact-modal .art-visual-stage.reference-visible {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    min-height: 0;
+    height: 100%;
+    gap: 0;
+  }
+
+  html.android-app #artifact-modal #art-canvas-container {
+    min-height: 0;
+    padding: 2px;
+  }
+
+  html.android-app #artifact-modal .art-visual-stage.reference-visible #art-canvas-container {
+    display: none;
+  }
+
+  html.android-app #artifact-modal .art-reference-panel {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    border: 0;
+  }
+
+  html.android-app #artifact-modal .art-reference-panel img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+    padding: clamp(6px, 1.2vw, 12px);
+    object-fit: contain;
+    object-position: center;
+  }
+
+  html.android-app #artifact-modal .art-reference-panel figcaption {
+    padding: 5px 8px 7px;
+    font-size: clamp(0.62rem, 1.9dvh, 0.76rem);
+  }
+
+  html.android-app #artifact-modal .art-info {
+    min-width: 0;
+    min-height: 0;
+    padding: clamp(28px, 5.5dvh, 44px) clamp(10px, 1.8vw, 18px) 10px;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  html.android-app #artifact-modal .art-info .calligraphy-title-medium {
+    font-size: clamp(1.2rem, 4.8dvh, 1.9rem);
+    line-height: 1.16;
+  }
+
+  html.android-app #artifact-modal .art-view-toolbar {
+    top: 9px;
+    left: 9px;
+    gap: 2px;
+    padding: 2px;
+  }
+
+  html.android-app #artifact-modal .art-view-toggle {
+    padding: 5px 9px;
+    font-size: clamp(0.66rem, 2.05dvh, 0.78rem);
+  }
+
+  html.android-app #artifact-modal .art-caption {
+    display: none;
+  }
+
+  html.android-app #artifact-modal .close-btn {
+    top: 8px;
+    right: 9px;
+    z-index: 12;
+    color: #fff;
+    text-shadow: 0 1px 4px #000;
+  }
 }

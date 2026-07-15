@@ -5,6 +5,18 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+function Show-GitHubDesktopNextSteps {
+    param([string]$Root)
+
+    Write-Host 'GitHub Desktop preparation completed.'
+    Write-Host "Repository: $Root"
+    Write-Host '1. Open GitHub Desktop and choose File > Add local repository.'
+    Write-Host '2. Select this project directory and commit the files shown in Changes.'
+    Write-Host '3. Click Push origin (or Publish branch for the first push).'
+    Write-Host '4. Upload the EXE and APK separately from the GitHub Releases page.'
+    Write-Host "Guide: $(Join-Path $Root 'GITHUB_DESKTOP_UPLOAD.md')"
+}
+
 if ([string]::IsNullOrWhiteSpace($ProjectRoot)) {
     $scriptPath = $MyInvocation.MyCommand.Path
     if ([string]::IsNullOrWhiteSpace($scriptPath)) {
@@ -27,6 +39,7 @@ if (-not (Test-Path -LiteralPath $packageJson -PathType Leaf)) {
 if (-not (Test-Path -LiteralPath $gitData -PathType Container)) {
     if (Test-Path -LiteralPath $legacyGit -PathType Container) {
         Write-Host 'The project already uses the standard .git directory.'
+        Show-GitHubDesktopNextSteps -Root $root
         exit 0
     }
 
@@ -52,6 +65,4 @@ if (Test-Path -LiteralPath $legacyGit) {
 
 Move-Item -LiteralPath $gitData -Destination $legacyGit
 
-Write-Host 'GitHub Desktop preparation completed.'
-Write-Host "Repository: $root"
-Write-Host 'Open GitHub Desktop and choose File > Add local repository.'
+Show-GitHubDesktopNextSteps -Root $root

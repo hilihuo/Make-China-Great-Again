@@ -1,6 +1,14 @@
 # Dependencies and build output
 node_modules/
 dist/
+.npm-cache/
+.electron-cache/
+.electron-builder-cache/
+.electron-user-data/
+.electron-user-data-packed/
+.native-tools/
+.gradle-user-home/
+release/
 .vite/
 
 # Root-level duplicate source assets; runtime assets live in public/images/
@@ -22,6 +30,16 @@ tmp-*
 .env
 .env.*
 !.env.example
+android/.gradle/
+android/local.properties
+android/app/build/
+android/build/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+*.jks
+*.keystore
+*.p12
 .DS_Store
 Thumbs.db
 Desktop.ini

@@ -1,0 +1,36 @@
+appId: com.hilihuo.chinaroad
+productName: 中华人文史卷
+copyright: Copyright © 2026 hilihuo
+
+directories:
+  output: release/windows
+
+files:
+  - dist/**/*
+  - electron/**/*
+  - package.json
+
+asar: true
+compression: normal
+electronDist: node_modules/electron/dist
+
+win:
+  executableName: ChinaHumanitiesMuseum
+  icon: public/images/artifact-da-ke-ding.png
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: China-Humanities-Museum-${version}-Setup.${ext}
+
+nsis:
+  oneClick: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: 中华人文史卷
+  runAfterFinish: true
+  deleteAppDataOnUninstall: false
+
+publish: null

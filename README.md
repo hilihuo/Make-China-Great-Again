@@ -2,7 +2,17 @@
 
 一个以 26 个历史纪元为主线的沉浸式 Web 3D 人文博物馆。项目把历史人物、关键事件、历史现场、人文图片与可交互展品放在同一条时间长卷中，让用户不只阅读年代与结论，还能从人物处境、器物细节和生活现场理解历史。
 
-项目使用 Vite、Three.js、GSAP 和 Web Audio API 构建，无需后端服务。所有页面、历史数据、图片和程序化 3D 模型均在浏览器中加载。
+核心体验使用 Vite、Three.js、GSAP 和 Web Audio API 构建，无需后端服务。项目既可在浏览器中预览，也已封装为 Windows 安装程序和 Android APK；三种方式使用同一套历史内容、图片与 3D 展品。
+
+## 三种使用方式
+
+| 使用方式 | 适合场景 | 启动方法 | 是否需要开发环境 |
+| --- | --- | --- | --- |
+| 浏览器预览 | 开发、调试和快速体验 | 运行 `npm run dev -- --host 127.0.0.1`，访问 `http://127.0.0.1:3000/` | 需要 Node.js，终端须保持运行 |
+| Windows 安装版 | 日常电脑使用、展览演示 | 安装 `China-Humanities-Museum-1.0.0-Setup.exe` 后从开始菜单启动 | 不需要 Node.js 或浏览器开发服务器 |
+| Android 安装版 | 手机、平板移动体验 | 在 Android 设备上安装 `China-Humanities-Museum-1.0.0.apk` | 不需要 Node.js 或电脑持续运行 |
+
+已经生成的安装包位于本机 `release/`。详细安装方法见 [NATIVE_APPS.md](NATIVE_APPS.md)，当前版本校验值见 [RELEASE_1.0.0.md](RELEASE_1.0.0.md)，通过 GitHub Desktop 提交和发布见 [GITHUB_DESKTOP_UPLOAD.md](GITHUB_DESKTOP_UPLOAD.md)。
 
 ## 项目目标
 
@@ -119,9 +129,9 @@
 
 ## 快速开始
 
-### 环境要求
+### 浏览器预览环境要求
 
-- Node.js 18 或更高版本。
+- Node.js 18 或更高版本；如需重新构建 Android 应用，使用 Node.js 22 或更高版本。
 - 支持 WebGL 2 和 Web Audio API 的现代浏览器。
 - 推荐 Chrome、Edge 或其他 Chromium 浏览器。
 - 建议使用独立显卡或开启浏览器硬件加速，以获得更稳定的 3D 帧率。
@@ -159,6 +169,52 @@ npm run build
 npm run preview -- --host 127.0.0.1
 ```
 
+## Windows 与 Android 应用
+
+项目已经提供真正的原生安装包，不需要启动 Vite，也不依赖 `http://127.0.0.1:3000/`：
+
+- Windows 安装程序：`release/windows/China-Humanities-Museum-1.0.0-Setup.exe`
+- Android 安装包：`release/android/China-Humanities-Museum-1.0.0.apk`
+
+Windows 版使用 Electron 封装，Android 版使用 Capacitor WebView 封装；高清图片、3D 展品和界面资源都打包在应用内。Android 版最低支持 Android 7.0（API 24），默认使用横屏以完整呈现展厅。
+
+安装方法、签名备份、重新构建和 GitHub Release 发布说明见 [NATIVE_APPS.md](NATIVE_APPS.md)，当前安装包的大小、哈希和验证结果见 [RELEASE_1.0.0.md](RELEASE_1.0.0.md)。
+
+### Windows 安装使用
+
+1. 打开 `release/windows/China-Humanities-Museum-1.0.0-Setup.exe`。
+2. 按安装向导完成安装；如果 SmartScreen 提示未知发布者，在确认文件哈希正确后选择继续运行。
+3. 从桌面或开始菜单打开“中华人文史卷”。安装后不需要再运行 PowerShell 或访问本地网址。
+
+### Android APK 安装使用
+
+1. 将 `release/android/China-Humanities-Museum-1.0.0.apk` 传到手机或平板。
+2. 在文件管理器中点击 APK，并按系统提示允许当前文件管理器“安装未知应用”。
+3. 安装后打开“中华人文史卷”，建议横屏使用并预留足够存储空间。
+4. 如果手机中已有不同签名的旧测试版，应先卸载旧版再安装当前 Release APK。
+
+### 构建 Windows 安装程序
+
+```powershell
+npm run desktop:exe
+```
+
+输出目录为 `release/windows/`。
+
+### 构建 Android APK
+
+准备 JDK 21、Android SDK API 36 与 Build Tools 后执行：
+
+```powershell
+npm run android:apk
+```
+
+调试 APK 输出到 `android/app/build/outputs/apk/debug/app-debug.apk`。未签名的 Release APK 可通过以下命令生成：
+
+```powershell
+npm run android:release
+```
+
 ## 项目结构
 
 ```text
@@ -167,6 +223,13 @@ RW/
 ├─ style.css             全局布局、响应式界面与视觉样式
 ├─ vite.config.js        Vite 端口和构建配置
 ├─ package.json          项目脚本与依赖
+├─ electron/             Windows 桌面应用入口
+├─ electron-builder.yml  Windows 安装程序配置
+├─ capacitor.config.json Android 原生容器配置
+├─ android/              Android Studio / Gradle 工程
+├─ NATIVE_APPS.md        Windows 与 Android 安装和构建说明
+├─ GITHUB_DESKTOP_UPLOAD.md  GitHub Desktop 提交与 Release 上传说明
+├─ GITHUB_RELEASE_NOTES_1.0.0.md  可直接使用的发布说明
 ├─ public/images/        人文图片、人物图、事件图、现场图和展品参考图
 ├─ src/
 │  ├─ main.js            应用状态、纪元导航、弹窗、图片画廊和语音逻辑
